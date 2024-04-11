@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TargetFollower : MonoBehaviour
 {
+    [SerializeField] private float _inAirRotationFactor = 0.3f;
     [SerializeField] private Rigidbody _target;
     [SerializeField] private Transform _pivot;
     [SerializeField] private GroundSensor _groundSensor;
@@ -16,10 +17,13 @@ public class TargetFollower : MonoBehaviour
         Vector3 horizontal = new Vector3(_target.velocity.x, 0f, _target.velocity.z);
         Quaternion targetRotation = Quaternion.LookRotation(horizontal);
 
-        if (_groundSensor.IsGrounded)
+        float speed = _target.velocity.magnitude* Time.deltaTime;
+
+        if (_groundSensor.IsGrounded == false)
         {
-            float speed = _target.velocity.magnitude * Time.deltaTime;
-            _pivot.transform.rotation = Quaternion.Lerp(_pivot.transform.rotation, targetRotation, speed);
+            speed *= _inAirRotationFactor;
         }
+
+        _pivot.transform.rotation = Quaternion.Lerp(_pivot.transform.rotation, targetRotation, speed);
     }
 }
