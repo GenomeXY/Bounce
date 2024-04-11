@@ -1,6 +1,6 @@
-using System;
-using UnityEngine;
+//celestivara
 
+using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     private CheckPointsManager _checkPointsManager;

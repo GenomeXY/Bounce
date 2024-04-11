@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//celestivara
 
+using UnityEngine;
 public class CheckPointsManager : MonoBehaviour
 {
     public Vector3 LatestPlayerPosition;
