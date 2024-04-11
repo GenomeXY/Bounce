@@ -30,16 +30,16 @@ namespace CMF
 		//Update;
 		void Update () {
 
-			if(Input.GetKeyDown(unlockKeyCode))
+			if(UnityEngine.Input.GetKeyDown(unlockKeyCode))
 			{
-				Cursor.lockState = CursorLockMode.None;
-				Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
 			}
 				
-			if(Input.GetKeyDown(lockKeyCode))
+			if(UnityEngine.Input.GetKeyDown(lockKeyCode))
 			{
-				Cursor.lockState = CursorLockMode.Locked;
-				Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
 			}	
 		}
 	}

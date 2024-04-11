@@ -17,22 +17,22 @@ namespace CMF
         public override float GetHorizontalMovementInput()
 		{
 			if(useRawInput)
-				return Input.GetAxisRaw(horizontalInputAxis);
+				return UnityEngine.Input.GetAxisRaw(horizontalInputAxis);
 			else
-				return Input.GetAxis(horizontalInputAxis);
+				return UnityEngine.Input.GetAxis(horizontalInputAxis);
 		}
 
 		public override float GetVerticalMovementInput()
 		{
 			if(useRawInput)
-				return Input.GetAxisRaw(verticalInputAxis);
+				return UnityEngine.Input.GetAxisRaw(verticalInputAxis);
 			else
-				return Input.GetAxis(verticalInputAxis);
+				return UnityEngine.Input.GetAxis(verticalInputAxis);
 		}
 
 		public override bool IsJumpKeyPressed()
 		{
-			return Input.GetKey(jumpKey);
+			return UnityEngine.Input.GetKey(jumpKey);
 		}
     }
 }

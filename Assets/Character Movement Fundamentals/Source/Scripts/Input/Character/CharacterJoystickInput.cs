@@ -24,9 +24,9 @@ namespace CMF
 			float _horizontalInput;
 
 			if(useRawInput)
-				_horizontalInput = Input.GetAxisRaw(horizontalInputAxis);
+				_horizontalInput = UnityEngine.Input.GetAxisRaw(horizontalInputAxis);
 			else
-				_horizontalInput = Input.GetAxis(horizontalInputAxis);
+				_horizontalInput = UnityEngine.Input.GetAxis(horizontalInputAxis);
 
 			//Set any input values below threshold to '0';
 			if(Mathf.Abs(_horizontalInput) < deadZoneThreshold)
@@ -40,9 +40,9 @@ namespace CMF
 			float _verticalInput;
 
 			if(useRawInput)
-				_verticalInput = Input.GetAxisRaw(verticalInputAxis);
+				_verticalInput = UnityEngine.Input.GetAxisRaw(verticalInputAxis);
 			else
-				_verticalInput = Input.GetAxis(verticalInputAxis);
+				_verticalInput = UnityEngine.Input.GetAxis(verticalInputAxis);
 
 			//Set any input values below threshold to '0';
 			if(Mathf.Abs(_verticalInput) < deadZoneThreshold)
@@ -53,7 +53,7 @@ namespace CMF
 
 		public override bool IsJumpKeyPressed()
 		{
-			return Input.GetKey(jumpKey);
+			return UnityEngine.Input.GetKey(jumpKey);
 		}
 
 	}

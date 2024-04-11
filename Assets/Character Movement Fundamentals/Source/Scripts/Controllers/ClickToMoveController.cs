@@ -243,21 +243,21 @@ public class ClickToMoveController : Controller
 	//This function can be overridden to implement other input methods;
 	protected Vector2 GetMousePosition()
 	{
-		return Input.mousePosition;
+		return UnityEngine.Input.mousePosition;
 	}
 
 	//Check whether mouse button is currently pressed down;
 	//This function can be overridden to implement other input methods;
 	protected bool IsMouseButtonPressed()
 	{
-		return Input.GetMouseButton(0);
+		return UnityEngine.Input.GetMouseButton(0);
 	}
 
 	//Check whether mouse button was just pressed down;
 	//This function can be overridden to implement other input methods;
 	protected bool WasMouseButtonJustPressed()
 	{
-		return Input.GetMouseButtonDown(0);
+		return UnityEngine.Input.GetMouseButtonDown(0);
 	}
 
 	public override bool IsGrounded()
