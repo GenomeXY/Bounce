@@ -23,7 +23,7 @@ namespace CMF
 	    public override float GetHorizontalCameraInput()
         {
             //Get input;
-			float _horizontalInput = Input.GetAxisRaw(joystickHorizontalAxis);
+			float _horizontalInput = UnityEngine.Input.GetAxisRaw(joystickHorizontalAxis);
 
 			//Set any input values below threshold to '0';
 			if(Mathf.Abs(_horizontalInput) < deadZoneThreshold)
@@ -39,7 +39,7 @@ namespace CMF
         public override float GetVerticalCameraInput()
         {
             //Get input;
-			float _verticalInput = Input.GetAxisRaw(joystickVerticalAxis);
+			float _verticalInput = UnityEngine.Input.GetAxisRaw(joystickVerticalAxis);
 
 			//Set any input values below threshold to '0';
 			if(Mathf.Abs(_verticalInput) < deadZoneThreshold)

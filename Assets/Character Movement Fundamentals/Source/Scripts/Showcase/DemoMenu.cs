@@ -79,22 +79,22 @@ namespace CMF
 		void Update () {
 
 			//Hide/show demo menu;
-			if(Input.GetKeyDown(menuKey))
+			if(UnityEngine.Input.GetKeyDown(menuKey))
 			{
-				SetMenuEnabled(!demoMenuObject.activeSelf);
+                SetMenuEnabled(!demoMenuObject.activeSelf);
 			}
 
 			//If scene was built as a Windows executable, also hide/show demo menu when 'Escape' is pressed;
 			#if UNITY_STANDALONE_WIN
-			if(Input.GetKeyDown(KeyCode.Escape))
+			if(UnityEngine.Input.GetKeyDown(KeyCode.Escape))
 			{
-				SetMenuEnabled(!demoMenuObject.activeSelf);
+                SetMenuEnabled(!demoMenuObject.activeSelf);
 			}
 			#endif
 
 			//If left mouse button is pressed and the menu is hidden, lock cursor;
-			if(Input.GetMouseButtonDown(0) && !demoMenuObject.activeSelf)
-				Cursor.lockState = CursorLockMode.Locked;
+			if(UnityEngine.Input.GetMouseButtonDown(0) && !demoMenuObject.activeSelf)
+                Cursor.lockState = CursorLockMode.Locked;
 		}
 
 		//Reload scene;
