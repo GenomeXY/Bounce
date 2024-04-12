@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class InAirMovementBehaviour : MonoBehaviour
 {
+    private const float MaxSpeedToMove = 10f;
     [SerializeField] private Transform _pivot;
     [SerializeField] private float _inAirForce;
 
@@ -30,8 +31,11 @@ public class InAirMovementBehaviour : MonoBehaviour
     {
         if (_groundSensor.IsGrounded == false)
         {
-            _rigidbody.AddForce(direction.z * _inAirForce * _pivot.forward, ForceMode.Force);
-            _rigidbody.AddForce(-direction.x * _inAirForce * _pivot.right, ForceMode.Force);
+            if (_rigidbody.velocity.magnitude < MaxSpeedToMove)
+            {
+                _rigidbody.AddForce(direction.z * _inAirForce * _pivot.forward, ForceMode.Force);
+                _rigidbody.AddForce(-direction.x * _inAirForce * _pivot.right, ForceMode.Force);
+            }
         }
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     #region stringHash
-    private string Horizontal = "Horizontal";
-    private string Vertical = "Vertical";
+    private readonly string Horizontal = "Horizontal";
+    private readonly string Vertical = "Vertical";
 
     private const string HorizontalAxis = nameof(Horizontal);
     private const string VerticalAxis = nameof(Vertical);
