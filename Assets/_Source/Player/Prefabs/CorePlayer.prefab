@@ -185,7 +185,6 @@ GameObject:
   - component: {fileID: 693050493944436574}
   - component: {fileID: 2200565200639394224}
   - component: {fileID: 7600535082027032949}
-  - component: {fileID: 1303274946246219099}
   - component: {fileID: 3051417804673698404}
   - component: {fileID: 2817256901935966028}
   - component: {fileID: 760008474810728565}
@@ -338,18 +337,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpForce: 5
---- !u!114 &1303274946246219099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5817249255536359087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 315a54f8f13ba9e4b8b2ac6e8566a5e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3051417804673698404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5060120f5b3b4fc4e9f39ab373a0ecfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inAirRotationFactor: 0.3
   _target: {fileID: 760008474810728565}
   _pivot: {fileID: 3679548342324952391}
   _groundSensor: {fileID: 3051417804673698404}
