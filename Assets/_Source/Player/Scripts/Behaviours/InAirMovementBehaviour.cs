@@ -3,11 +3,11 @@ using UnityEngine;
 public class InAirMovementBehaviour : MonoBehaviour
 {
     [SerializeField] private float _forceReduceFactor = 0.7f;
-    [SerializeField] private float _limitSpeedToForce = 6f;
+    [SerializeField] private float _limitSpeedToForce = 10f;
     [SerializeField] private float _gravityFactor = 0.5f;
 
     [SerializeField] private Transform _pivot;
-    [SerializeField] private float _inAirForce = 5f;
+    [SerializeField] private float _inAirForce = 7f;
 
     private float _actualForce;
 
@@ -24,12 +24,12 @@ public class InAirMovementBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerInput.Moved += OnMoved;
+        _playerInput.MoveOrdered += OnMoved;
     }
 
     private void OnDisable()
     {
-        _playerInput.Moved -= OnMoved;
+        _playerInput.MoveOrdered -= OnMoved;
     }
 
     private void FixedUpdate()
@@ -42,12 +42,18 @@ public class InAirMovementBehaviour : MonoBehaviour
 
     private void OnMoved(Vector3 direction)
     {
+        if (direction == Vector3.zero)
+        {
+            return;
+        }
+           
         if (_groundSensor.IsGrounded == false)
         {
             _actualForce = _rigidbody.velocity.magnitude < _limitSpeedToForce
                 ? _inAirForce
                 : _inAirForce * _forceReduceFactor;
 
+            float cacheVelocityY = _rigidbody.velocity.y;
             _rigidbody.AddForce(direction.z * _actualForce * _pivot.forward, ForceMode.Force);
             _rigidbody.AddForce(direction.x * _actualForce * _pivot.right, ForceMode.Force);
         }

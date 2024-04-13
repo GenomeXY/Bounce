@@ -9,12 +9,12 @@ public class TargetFollower : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_target.velocity == Vector3.zero)
-            return;
-
         _pivot.transform.position = _target.position;
 
         Vector3 horizontal = new Vector3(_target.velocity.x, 0f, _target.velocity.z);
+        if (horizontal == Vector3.zero)
+            return;
+
         Quaternion targetRotation = Quaternion.LookRotation(horizontal);
         float speed = _target.velocity.magnitude * Time.deltaTime;
 

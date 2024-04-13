@@ -3,13 +3,11 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    #region stringHash
     private readonly string Horizontal = "Horizontal";
     private readonly string Vertical = "Vertical";
 
     private const string HorizontalAxis = nameof(Horizontal);
     private const string VerticalAxis = nameof(Vertical);
-    #endregion
 
     [SerializeField] private KeyCode _boostKey = KeyCode.LeftShift;
     [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
@@ -17,8 +15,8 @@ public class PlayerInput : MonoBehaviour
 
     public event Action BoostEnabled;
     public event Action BoostDisabled;
-    public event Action<Vector3> Moved;
-    public event Action Jumped;
+    public event Action<Vector3> MoveOrdered;
+    public event Action JumpOrdered;
 
     private void Update()
     {
@@ -30,16 +28,17 @@ public class PlayerInput : MonoBehaviour
         if (_direction == Vector3.zero)
             return;
 
-        Moved?.Invoke(_direction);
+        MoveOrdered?.Invoke(_direction);
     }
 
     private void ProcessInput()
     { 
         _direction.Set(Input.GetAxisRaw(HorizontalAxis), 0f, Input.GetAxisRaw(VerticalAxis));
+        _direction.Normalize();
 
         if(Input.GetKeyDown(_jumpKey))
         {
-            Jumped?.Invoke();
+            JumpOrdered?.Invoke();
         }
 
         if (Input.GetKeyUp(_boostKey))

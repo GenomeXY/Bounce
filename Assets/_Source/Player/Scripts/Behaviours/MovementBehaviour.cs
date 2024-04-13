@@ -25,14 +25,14 @@ public class MovementBehaviour : MonoBehaviour
     {
         _playerInput.BoostEnabled += OnBoostEnabled;
         _playerInput.BoostDisabled += OnBoostDisabled;
-        _playerInput.Moved += OnMoved;
+        _playerInput.MoveOrdered += OnMoveOrdered;
     }
 
     private void OnDisable()
     {
         _playerInput.BoostEnabled -= OnBoostEnabled;
         _playerInput.BoostDisabled -= OnBoostDisabled;
-        _playerInput.Moved -= OnMoved;
+        _playerInput.MoveOrdered -= OnMoveOrdered;
     }
 
     private void OnBoostEnabled()
@@ -45,7 +45,7 @@ public class MovementBehaviour : MonoBehaviour
         _torqueSpeed = _defaultTorqueSpeed;
     }
 
-    private void OnMoved(Vector3 direction)
+    private void OnMoveOrdered(Vector3 direction)
     {
         if (_groundSensor.IsGrounded)
         {

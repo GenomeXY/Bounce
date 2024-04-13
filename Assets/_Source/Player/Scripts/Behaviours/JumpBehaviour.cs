@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class JumpBehaviour : MonoBehaviour
 {
-    [SerializeField] private float _jumpForce = 7f;
+    [SerializeField] private float _defaultJumpForce = 7f;
+    [SerializeField] private float _maxJumpForce = 15f;
+    private float _jumpForce;
     
     private PlayerInput _player;
     private Rigidbody _rigidbody;
@@ -15,19 +17,21 @@ public class JumpBehaviour : MonoBehaviour
         _player = FindObjectOfType<PlayerInput>();
         _rigidbody = GetComponent<Rigidbody>();
         _jumpHelper = GetComponent<JumpHelper>();
+
+        ResetForce();
     }
 
     private void OnEnable()
     {
-        _player.Jumped += OnJumped;
+        _player.JumpOrdered += OnJumpOrdered;
     }
 
     private void OnDisable()
     {
-        _player.Jumped -= OnJumped;
+        _player.JumpOrdered -= OnJumpOrdered;
     }
 
-    private void OnJumped()
+    private void OnJumpOrdered()
     {
         if (_groundSensor.IsGrounded)
         {
@@ -41,9 +45,18 @@ public class JumpBehaviour : MonoBehaviour
 
     private void Jump()
     {
-        var force = new Vector3(0f, _jumpForce, 0f);
-        
         _rigidbody.velocity.Set(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
-        _rigidbody.AddForce(force, ForceMode.Impulse);
+        _rigidbody.AddForce(new Vector3(0f, _jumpForce, 0f), ForceMode.Impulse);
+        ResetForce();
+    }
+
+    public void SetForce(float value)
+    {
+        _jumpForce = Mathf.Min(value, _maxJumpForce);
+    }
+
+    public void ResetForce()
+    {
+        _jumpForce = _defaultJumpForce;
     }
 }

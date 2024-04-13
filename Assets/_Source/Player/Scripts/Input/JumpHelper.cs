@@ -5,7 +5,7 @@ using UnityEngine;
 public class JumpHelper : MonoBehaviour
 {
     [SerializeField] private float _jumpHelperDelay;
-    [SerializeField] private BouncinessBehaviour _bouncinessBehaviour;
+    [SerializeField] private BounceBehaviour _bouncinessBehaviour;
 
     private float _jumpHelperTimer;
     private GroundSensor _groundSensor;
@@ -26,7 +26,7 @@ public class JumpHelper : MonoBehaviour
 
     private IEnumerator DelayJump(Action action)
     {
-        _bouncinessBehaviour.IsJumpHelperOrdered = true;
+        _bouncinessBehaviour.IsJumpOrdered = true;
         _jumpHelperTimer = _jumpHelperDelay;
 
         while (_groundSensor.IsGrounded == false && _jumpHelperTimer > 0)
@@ -40,6 +40,6 @@ public class JumpHelper : MonoBehaviour
             action();
         }
 
-        _bouncinessBehaviour.IsJumpHelperOrdered = false;
+        _bouncinessBehaviour.IsJumpOrdered = false;
     }
 }
