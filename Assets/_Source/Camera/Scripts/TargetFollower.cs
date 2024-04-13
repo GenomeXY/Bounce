@@ -16,8 +16,7 @@ public class TargetFollower : MonoBehaviour
 
         Vector3 horizontal = new Vector3(_target.velocity.x, 0f, _target.velocity.z);
         Quaternion targetRotation = Quaternion.LookRotation(horizontal);
-
-        float speed = _target.velocity.magnitude* Time.deltaTime;
+        float speed = _target.velocity.magnitude * Time.deltaTime;
 
         if (_groundSensor.IsGrounded == false)
         {
