@@ -35,11 +35,16 @@ public class PlayerInput : MonoBehaviour
 
     private void ProcessInput()
     { 
-        _direction.Set(-Input.GetAxisRaw(HorizontalAxis), 0f, Input.GetAxisRaw(VerticalAxis));
+        _direction.Set(Input.GetAxisRaw(HorizontalAxis), 0f, Input.GetAxisRaw(VerticalAxis));
 
         if(Input.GetKeyDown(_jumpKey))
         {
             Jumped?.Invoke();
+        }
+
+        if (Input.GetKeyUp(_boostKey))
+        {
+            BoostDisabled?.Invoke();
         }
 
         if (_direction == Vector3.zero)
@@ -48,10 +53,6 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(_boostKey))
         {
             BoostEnabled?.Invoke();
-        }
-        else if(Input.GetKeyUp(_boostKey))
-        {
-            BoostDisabled?.Invoke();
         }
     }
 }

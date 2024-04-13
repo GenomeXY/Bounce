@@ -49,7 +49,7 @@ public class MovementBehaviour : MonoBehaviour
     {
         if (_groundSensor.IsGrounded)
         {
-            _rigidbody.AddTorque(direction.x * _torqueSpeed * _pivot.forward);
+            _rigidbody.AddTorque(-direction.x * _torqueSpeed * _pivot.forward);
             _rigidbody.AddTorque(direction.z * _torqueSpeed * _pivot.right);
         }
     }
