@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BounceBehaviour : MonoBehaviour
@@ -58,10 +59,20 @@ public class BounceBehaviour : MonoBehaviour
 
     private bool IsVertical(Collider other)
     {
-        Vector3 distance = (other.ClosestPointOnBounds(transform.position) - transform.position);
+        RaycastHit hit;
 
-        Physics.Raycast(transform.position, distance, out RaycastHit hit);
+        if (other is MeshCollider meshCollider && meshCollider.convex == false)
+        {
+            Physics.Raycast(transform.position, Vector3.down, out hit);
+        }
+        else
+        {
+            Vector3 distance = (other.ClosestPointOnBounds(transform.position) - transform.position);
+            Physics.Raycast(transform.position, distance, out hit);
+        }
+        
         bool isVertical = Vector3.Dot(hit.normal, Vector3.up) >= 0.5f;
+        print(Vector3.Dot(hit.normal, Vector3.up).ToString("0.0"));
         return isVertical;
     }
 
