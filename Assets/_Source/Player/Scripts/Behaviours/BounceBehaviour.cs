@@ -1,16 +1,21 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 
 public class BounceBehaviour : MonoBehaviour
 {
     [SerializeField] private float _PressedInTimeJumpScaler = 1.15f;
     [SerializeField] private Collider _collider;
-    
+
+    public bool IsJumpOrdered { get; set; }
+
     private JumpBehaviour _jumpBehaviour;
     private Rigidbody _rigidbody;
     private Speedometer _speedometer;
 
-    public bool IsJumpOrdered { get; set; }
+    private Vector3 _rayCastDirection;
+    private bool IsVertical;
+    private float _collisionEnterDelayTimer;
+    private bool _canEnter;
 
     private void Awake()
     {
@@ -21,16 +26,40 @@ public class BounceBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        bool isVertical = IsVertical(other);
-        if (IsJumpOrdered && isVertical)
+        StopCoroutine(CollisionEnterDelay());
+        StartCoroutine(CollisionEnterDelay());
+
+        if (_canEnter == false)
+            return;
+
+        if (IsJumpOrdered && IsVertical)
         {
             ResetBounciness();
         }
         else
         {
-            SetBounciness(isVertical);
+            SetBounciness();
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other is MeshCollider meshCollider && meshCollider.convex == false)
+        {
+            _rayCastDirection = Vector3.down;
+        }
+        else
+        {
+            _rayCastDirection = (other.ClosestPoint(transform.position) - transform.position);
+        }
+
+        Physics.Raycast(transform.position, _rayCastDirection, out RaycastHit hit);
+        
+        IsVertical = Vector3.Dot(hit.normal, Vector3.up) >= 0.5f;
+        
+        print($"Dot({Vector3.Dot(hit.normal, Vector3.up):0.00}) Name ({hit.collider.name.Substring(0, 6)})");
+    }
+
     // TODO: Решено(иногда появлялся вроде) - Баг. Если в прыжке нажать ещё раз прыжок и больше ничего не трогать - мяч при приземлении один раз отпрыгнет от земли, но второй раз столкновение будет просто мгновенной остановкой, без упругости. 
     private void ResetBounciness()
     {
@@ -43,37 +72,18 @@ public class BounceBehaviour : MonoBehaviour
         _jumpBehaviour.SetForce(jumpForce);
     }
 
-    private void SetBounciness(bool isVertical)
+    private void SetBounciness()
     {
         const float minBounciness = 0.4f;
         const float maxBounciness = 0.9f;
 
         float speed = NormalizedSpeed();
-        
-        speed = isVertical 
-            ? minBounciness 
+
+        speed = IsVertical
+            ? minBounciness
             : Mathf.Clamp(speed, minBounciness, maxBounciness);
 
         _collider.material.bounciness = speed;
-    }
-
-    private bool IsVertical(Collider other)
-    {
-        RaycastHit hit;
-
-        if (other is MeshCollider meshCollider && meshCollider.convex == false)
-        {
-            Physics.Raycast(transform.position, Vector3.down, out hit);
-        }
-        else
-        {
-            Vector3 distance = (other.ClosestPointOnBounds(transform.position) - transform.position);
-            Physics.Raycast(transform.position, distance, out hit);
-        }
-        
-        bool isVertical = Vector3.Dot(hit.normal, Vector3.up) >= 0.5f;
-        print(Vector3.Dot(hit.normal, Vector3.up).ToString("0.0"));
-        return isVertical;
     }
 
     private float NormalizedSpeed()
@@ -83,5 +93,19 @@ public class BounceBehaviour : MonoBehaviour
 
         float speed = _rigidbody.velocity.magnitude / currentMaxSpeed;
         return speed;
+    }
+
+    private IEnumerator CollisionEnterDelay()
+    {
+        _canEnter = false;
+        _collisionEnterDelayTimer = 0.1f;
+
+        while(_collisionEnterDelayTimer > 0)
+        {
+            _collisionEnterDelayTimer -= Time.deltaTime;
+            yield return null;
+        }
+
+        _canEnter = true;
     }
 }
