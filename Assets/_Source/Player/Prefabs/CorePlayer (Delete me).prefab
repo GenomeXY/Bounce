@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 7493393215892128969}
   - component: {fileID: 2131439767988523180}
   m_Layer: 0
-  m_Name: CorePlayer
+  m_Name: CorePlayer (Delete me)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class BounceBehaviour : MonoBehaviour
 {
+    public event Action<Vector3, Vector3> Bounced;
+
     [SerializeField] private float _jumpScaler = 1.15f;
     [SerializeField] private Collider _collider;
 
@@ -12,7 +15,7 @@ public class BounceBehaviour : MonoBehaviour
     private Rigidbody _rigidbody;
     private Speedometer _speedometer;
 
-    private Vector3 _rayCastDirection;
+    private RaycastHit _raycastHit;
     private bool IsVertical;
     private float _collisionEnterDelayTimer;
     private bool _canEnter;
@@ -32,6 +35,9 @@ public class BounceBehaviour : MonoBehaviour
         if (_canEnter == false)
             return;
 
+        Vector3 direction = ComputeClosestPoint(other);
+        _raycastHit = GetHit(direction);
+
         if (IsJumpOrdered && IsVertical)
         {
             ResetBounciness();
@@ -39,6 +45,7 @@ public class BounceBehaviour : MonoBehaviour
         else
         {
             SetBounciness();
+            Bounced?.Invoke(_raycastHit.point, _raycastHit.normal);
         }
 
         _canEnter = false;
@@ -46,18 +53,28 @@ public class BounceBehaviour : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        Vector3 direction = ComputeClosestPoint(other);
+        _raycastHit = GetHit(direction);
+
+        IsVertical = Vector3.Dot(_raycastHit.normal, Vector3.up) >= 0.5f;
+    }
+
+    private Vector3 ComputeClosestPoint(Collider other)
+    {
         if (other is MeshCollider meshCollider && meshCollider.convex == false)
         {
-            _rayCastDirection = Vector3.down;
+            return Vector3.down;
         }
         else
         {
-            _rayCastDirection = (other.ClosestPoint(transform.position) - transform.position);
+            return other.ClosestPoint(transform.position) - transform.position;
         }
+    }
 
-        Physics.Raycast(transform.position, _rayCastDirection, out RaycastHit hit);
-        
-        IsVertical = Vector3.Dot(hit.normal, Vector3.up) >= 0.5f;
+    private RaycastHit GetHit(Vector3 direction)
+    {
+        Physics.Raycast(transform.position, direction, out RaycastHit hit);
+        return hit;
     }
 
     private void ResetBounciness()
@@ -98,7 +115,7 @@ public class BounceBehaviour : MonoBehaviour
     {
         _collisionEnterDelayTimer = 0.1f;
 
-        while(_collisionEnterDelayTimer > 0)
+        while (_collisionEnterDelayTimer > 0)
         {
             _collisionEnterDelayTimer -= Time.deltaTime;
             yield return null;

@@ -3,11 +3,14 @@ using UnityEngine;
 public class FollowBehaviour : MonoBehaviour
 {
     [SerializeField] private Transform _target;
-
-    private Vector3 _offset = new Vector3(0f, -0.5f, 0f);
-
+    [SerializeField] private Vector3 _offset;
+    [SerializeField] private bool _repeatRotation;
+    
     private void LateUpdate()
     {
         transform.position = _target.position + _offset;
+
+        if (_repeatRotation)
+            transform.rotation = _target.rotation;
     }
 }

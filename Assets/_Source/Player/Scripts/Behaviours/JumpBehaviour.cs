@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class JumpBehaviour : MonoBehaviour
 {
-    [SerializeField] private float DefaultJumpModifier = 1.5f;
+    [SerializeField] private float DefaultJumpModifier = 1.3f;
     [SerializeField] private float _defaultJumpForce = 6f;
     private float _jumpForce;
 

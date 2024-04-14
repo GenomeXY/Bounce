@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class GroundSensor : MonoBehaviour
 {
-    [SerializeField] private float _delay;
-    private float _timer;
+    public event Action Grounded;
 
-    JumpBehaviour _jumpBehaviour;
-    Coroutine _coroutine;
+    [SerializeField] private float _delay;
+    
+    private JumpBehaviour _jumpBehaviour;
+    private Coroutine _coroutine;
 
     public bool IsGrounded { get; private set; }
-
-    public event Action Grounded;
 
     private void Awake()
     {
@@ -61,11 +60,11 @@ public class GroundSensor : MonoBehaviour
 
     private IEnumerator ResetIsGroundedDelayed()
     {
-        _timer = _delay;
+        float timer = _delay;
 
-        while (_timer > 0)
+        while (timer > 0)
         {
-            _timer -= Time.deltaTime;
+            timer -= Time.deltaTime;
             yield return null;
         }
 
