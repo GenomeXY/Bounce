@@ -40,6 +40,8 @@ public class BounceBehaviour : MonoBehaviour
         {
             SetBounciness();
         }
+
+        _canEnter = false;
     }
 
     private void OnTriggerStay(Collider other)
@@ -97,7 +99,6 @@ public class BounceBehaviour : MonoBehaviour
 
     private IEnumerator CollisionEnterDelay()
     {
-        _canEnter = false;
         _collisionEnterDelayTimer = 0.1f;
 
         while(_collisionEnterDelayTimer > 0)
