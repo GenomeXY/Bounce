@@ -4,12 +4,19 @@ public class BounceBehaviour : MonoBehaviour
 {
     [SerializeField] private float _PressedInTimeJumpScaler = 1.15f;
     [SerializeField] private Collider _collider;
-    [SerializeField] private GroundSensor _groundSensor;
-    [SerializeField] private JumpBehaviour _jumpBehaviour;
-    [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private Speedometer _speedometer;
+    
+    private JumpBehaviour _jumpBehaviour;
+    private Rigidbody _rigidbody;
+    private Speedometer _speedometer;
 
     public bool IsJumpOrdered { get; set; }
+
+    private void Awake()
+    {
+        _jumpBehaviour = GetComponentInParent<JumpBehaviour>();
+        _rigidbody = GetComponentInParent<Rigidbody>();
+        _speedometer = GetComponentInParent<Speedometer>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,12 +24,10 @@ public class BounceBehaviour : MonoBehaviour
         if (IsJumpOrdered && isVertical)
         {
             ResetBounciness();
-            print("ResetBounciness");
         }
         else
         {
             SetBounciness(isVertical);
-            print("SetBounciness");
         }
     }
     // TODO: Решено(иногда появлялся вроде) - Баг. Если в прыжке нажать ещё раз прыжок и больше ничего не трогать - мяч при приземлении один раз отпрыгнет от земли, но второй раз столкновение будет просто мгновенной остановкой, без упругости. 
@@ -43,18 +48,12 @@ public class BounceBehaviour : MonoBehaviour
         const float maxBounciness = 0.9f;
 
         float speed = NormalizedSpeed();
-        if (isVertical)
-        {
-            
-            speed = minBounciness;
-        }
-        else
-        {
-            speed = Mathf.Clamp(speed, minBounciness, maxBounciness);
-        }
+        
+        speed = isVertical 
+            ? minBounciness 
+            : Mathf.Clamp(speed, minBounciness, maxBounciness);
 
         _collider.material.bounciness = speed;
-        print(speed);
     }
 
     private bool IsVertical(Collider other)

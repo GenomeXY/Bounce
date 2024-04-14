@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class JumpBehaviour : MonoBehaviour
 {
+    [SerializeField] private float DefaultJumpModifier = 1.5f;
     [SerializeField] private float _defaultJumpForce = 6f;
     private float _jumpForce;
 
@@ -67,7 +68,7 @@ public class JumpBehaviour : MonoBehaviour
     private void ResetForce()
     {
         _jumpForce = _defaultJumpForce;
-        MaxJumpForce = _defaultJumpForce * 1.5f;
+        MaxJumpForce = _defaultJumpForce * DefaultJumpModifier;
     }
 
     private void OnGrounded()
