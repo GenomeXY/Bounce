@@ -6,7 +6,7 @@ public class InAirMovementBehaviour : MonoBehaviour
     [SerializeField] private float _limitSpeedToForce = 10f;
     [SerializeField] private float _gravityFactor = 0.5f;
 
-    [SerializeField] private Transform _pivot;
+    [SerializeField] private Transform _cameraPivot;
     [SerializeField] private float _inAirForce = 7f;
 
     private float _actualForce;
@@ -51,7 +51,7 @@ public class InAirMovementBehaviour : MonoBehaviour
             ? _inAirForce
             : _inAirForce * _forceReduceFactor;
 
-        _rigidbody.AddForce(direction.z * _actualForce * _pivot.forward, ForceMode.Force);
-        _rigidbody.AddForce(direction.x * _actualForce * _pivot.right, ForceMode.Force);
+        _rigidbody.AddForce(direction.z * _actualForce * _cameraPivot.forward, ForceMode.Force);
+        _rigidbody.AddForce(direction.x * _actualForce * _cameraPivot.right, ForceMode.Force);
     }
 }

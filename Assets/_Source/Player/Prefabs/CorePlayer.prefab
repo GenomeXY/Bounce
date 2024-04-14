@@ -180,7 +180,6 @@ GameObject:
   - component: {fileID: 7031771582390272581}
   - component: {fileID: 438967790754405250}
   - component: {fileID: 931215034989109713}
-  - component: {fileID: 7759001069234964989}
   - component: {fileID: 7345605676304447991}
   - component: {fileID: 693050493944436574}
   - component: {fileID: 2200565200639394224}
@@ -263,18 +262,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7759001069234964989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5817249255536359087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 315a54f8f13ba9e4b8b2ac6e8566a5e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7345605676304447991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,6 +488,7 @@ GameObject:
   - component: {fileID: 3941830646763675069}
   - component: {fileID: 6212861680273950056}
   - component: {fileID: 7493393215892128969}
+  - component: {fileID: 2131439767988523180}
   m_Layer: 0
   m_Name: CorePlayer
   m_TagString: Untagged
@@ -554,3 +542,16 @@ MonoBehaviour:
   _target: {fileID: 760008474810728565}
   _pivot: {fileID: 3679548342324952391}
   _groundSensor: {fileID: 3051417804673698404}
+--- !u!114 &2131439767988523180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620416805945152026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 315a54f8f13ba9e4b8b2ac6e8566a5e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 760008474810728565}

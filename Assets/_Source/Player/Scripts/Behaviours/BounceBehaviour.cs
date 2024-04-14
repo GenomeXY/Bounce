@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BounceBehaviour : MonoBehaviour
 {
-    [SerializeField] private float _PressedInTimeJumpScaler = 1.15f;
+    [SerializeField] private float _jumpScaler = 1.15f;
     [SerializeField] private Collider _collider;
 
     public bool IsJumpOrdered { get; set; }
@@ -58,18 +58,15 @@ public class BounceBehaviour : MonoBehaviour
         Physics.Raycast(transform.position, _rayCastDirection, out RaycastHit hit);
         
         IsVertical = Vector3.Dot(hit.normal, Vector3.up) >= 0.5f;
-        
-        print($"Dot({Vector3.Dot(hit.normal, Vector3.up):0.00}) Name ({hit.collider.name.Substring(0, 6)})");
     }
 
-    // TODO: Решено(иногда появлялся вроде) - Баг. Если в прыжке нажать ещё раз прыжок и больше ничего не трогать - мяч при приземлении один раз отпрыгнет от земли, но второй раз столкновение будет просто мгновенной остановкой, без упругости. 
     private void ResetBounciness()
     {
         IsJumpOrdered = false;
         _collider.material.bounciness = default;
 
         float verticalMagnitude = new Vector3(0f, _rigidbody.velocity.y, 0f).magnitude;
-        float jumpForce = Mathf.Min(verticalMagnitude * _PressedInTimeJumpScaler, _jumpBehaviour.MaxJumpForce);
+        float jumpForce = Mathf.Min(verticalMagnitude * _jumpScaler, _jumpBehaviour.MaxJumpForce);
 
         _jumpBehaviour.SetForce(jumpForce);
     }

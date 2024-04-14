@@ -14,6 +14,9 @@ public class JumpBehaviour : MonoBehaviour
 
     public bool CanJump { get; private set; }
     public float MaxJumpForce { get; private set; }
+
+    public event Action Jumped;
+    
     private void Awake()
     {
         _groundSensor = GetComponent<GroundSensor>();
@@ -50,7 +53,10 @@ public class JumpBehaviour : MonoBehaviour
 
     private void Jump()
     {
+        Jumped?.Invoke();
+
         _rigidbody.velocity.Set(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
+        _rigidbody.angularVelocity = Vector3.zero;
         _rigidbody.AddForce(new Vector3(0f, _jumpForce, 0f), ForceMode.Impulse);
         
         ResetForce();

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraFOVModifier : MonoBehaviour
 {
     [SerializeField] private float _boostFOVFactor = 1.4f;
 

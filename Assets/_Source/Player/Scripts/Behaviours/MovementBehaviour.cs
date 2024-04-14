@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MovementBehaviour : MonoBehaviour
 {
-    [SerializeField] private Transform _pivot;
+    [SerializeField] private Transform _cameraPivot;
     [SerializeField] private float _defaultTorqueSpeed;
     [SerializeField] private float _boostTorqueSpeed;
 
@@ -49,8 +49,8 @@ public class MovementBehaviour : MonoBehaviour
     {
         if (_groundSensor.IsGrounded)
         {
-            _rigidbody.AddTorque(-direction.x * _torqueSpeed * _pivot.forward);
-            _rigidbody.AddTorque(direction.z * _torqueSpeed * _pivot.right);
+            _rigidbody.AddTorque(-direction.x * _torqueSpeed * _cameraPivot.forward);
+            _rigidbody.AddTorque(direction.z * _torqueSpeed * _cameraPivot.right);
         }
     }
 }
