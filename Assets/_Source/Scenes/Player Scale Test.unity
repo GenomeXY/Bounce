@@ -6342,6 +6342,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7600535082027032949, guid: 2380427c877c9ed4fa3ab0466f739182,
         type: 3}
+      propertyPath: _collider
+      value: 
+      objectReference: {fileID: 1226668160}
+    - target: {fileID: 7600535082027032949, guid: 2380427c877c9ed4fa3ab0466f739182,
+        type: 3}
       propertyPath: _maxJumpForce
       value: 15
       objectReference: {fileID: 0}

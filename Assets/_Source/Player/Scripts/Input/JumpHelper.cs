@@ -27,7 +27,6 @@ public class JumpHelper : MonoBehaviour
     private IEnumerator DelayJump(Action action)
     {
         _bouncinessBehaviour.IsJumpOrdered = true;
-        print($"JumpHelper({_bouncinessBehaviour.IsJumpOrdered})");
         _jumpHelperTimer = _jumpHelperDelay;
 
         while (_groundSensor.IsGrounded == false && _jumpHelperTimer > 0)
@@ -47,6 +46,5 @@ public class JumpHelper : MonoBehaviour
         }
 
         _bouncinessBehaviour.IsJumpOrdered = false;
-        print($"JumpHelper({_bouncinessBehaviour.IsJumpOrdered})");
     }
 }

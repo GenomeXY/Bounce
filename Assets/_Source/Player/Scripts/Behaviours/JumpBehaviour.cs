@@ -1,43 +1,43 @@
+using System;
 using UnityEngine;
 
 public class JumpBehaviour : MonoBehaviour
 {
-    [SerializeField] private float _defaultJumpForce = 7f;
-    [SerializeField] private float _maxJumpForce = 15f;
+    [SerializeField] private float _defaultJumpForce = 6f;
     private float _jumpForce;
 
-    private PlayerInput _player;
-    private Rigidbody _rigidbody;
-    private GroundSensor _groundSensor;
     private JumpHelper _jumpHelper;
+    private PlayerInput _playerInput;
+    private GroundSensor _groundSensor;
+    private Rigidbody _rigidbody;
 
-    private bool _canJump;
-
+    public bool CanJump { get; private set; }
+    public float MaxJumpForce { get; private set; }
     private void Awake()
     {
         _groundSensor = GetComponent<GroundSensor>();
-        _player = FindObjectOfType<PlayerInput>();
-        _rigidbody = GetComponent<Rigidbody>();
+        _playerInput = FindObjectOfType<PlayerInput>();
         _jumpHelper = GetComponent<JumpHelper>();
+        _rigidbody = GetComponent<Rigidbody>();
 
         ResetForce();
     }
 
     private void OnEnable()
     {
-        _player.JumpOrdered += OnJumpOrdered;
+        _playerInput.JumpOrdered += OnJumpOrdered;
         _groundSensor.Grounded += OnGrounded;
     }
 
     private void OnDisable()
     {
-        _player.JumpOrdered -= OnJumpOrdered;
+        _playerInput.JumpOrdered -= OnJumpOrdered;
         _groundSensor.Grounded -= OnGrounded;
     }
 
     private void OnJumpOrdered()
     {
-        if (_groundSensor.IsGrounded && _canJump)
+        if (_groundSensor.IsGrounded && CanJump)
         {
             Jump();
         }
@@ -49,27 +49,29 @@ public class JumpBehaviour : MonoBehaviour
 
     private void Jump()
     {
-        print($"JUMP. canJump({_canJump})");
         _rigidbody.velocity.Set(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
         _rigidbody.AddForce(new Vector3(0f, _jumpForce, 0f), ForceMode.Impulse);
         
         ResetForce();
-        _canJump = false;
+        CanJump = false;
     }
 
     public void SetForce(float value)
     {
-        _jumpForce = Mathf.Min(value, _maxJumpForce);
+        if (value > MaxJumpForce)
+            throw new ArgumentOutOfRangeException();
+
+        _jumpForce = value;
     }
 
     private void ResetForce()
     {
         _jumpForce = _defaultJumpForce;
+        MaxJumpForce = _defaultJumpForce * 1.5f;
     }
 
     private void OnGrounded()
     {
-        _canJump = true;
+        CanJump = true;
     }
-
 }

@@ -1,70 +1,60 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BounceBehaviour : MonoBehaviour
 {
-    int touch = 0;
-    [SerializeField] private float _PressedInTimeJumpScaler = 1.2f;
+    [SerializeField] private float _PressedInTimeJumpScaler = 1.15f;
     [SerializeField] private Collider _collider;
     [SerializeField] private GroundSensor _groundSensor;
     [SerializeField] private JumpBehaviour _jumpBehaviour;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Speedometer _speedometer;
 
-    Queue<float> lastFrameSpeedCache = new();
-    float lastFrameSpeed;
-
     public bool IsJumpOrdered { get; set; }
-
-    private void Awake()
-    {
-        lastFrameSpeedCache.Enqueue(_rigidbody.velocity.magnitude);
-    }
-
-    private void FixedUpdate()
-    {
-        lastFrameSpeed = lastFrameSpeedCache.Dequeue();
-        lastFrameSpeedCache.Enqueue(_rigidbody.velocity.magnitude);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         bool isVertical = IsVertical(other);
-        ++touch;
-        print($"Touch {touch}.IsJumpOrdered({IsJumpOrdered}) - Speed({_rigidbody.velocity.magnitude:0.0})");
         if (IsJumpOrdered && isVertical)
         {
             ResetBounciness();
+            print("ResetBounciness");
         }
         else
         {
             SetBounciness(isVertical);
+            print("SetBounciness");
         }
     }
-    // TODO: Баг. Если в прыжке нажать ещё раз прыжок и больше ничего не трогать - мяч при приземлении один раз отпрыгнет от земли, но второй раз столкновение будет просто мгновенной остановкой, без упругости. 
+    // TODO: Решено(иногда появлялся вроде) - Баг. Если в прыжке нажать ещё раз прыжок и больше ничего не трогать - мяч при приземлении один раз отпрыгнет от земли, но второй раз столкновение будет просто мгновенной остановкой, без упругости. 
     private void ResetBounciness()
     {
-        _collider.material.bounciness = default;
-        _jumpBehaviour.SetForce(_rigidbody.velocity.magnitude * _PressedInTimeJumpScaler);
         IsJumpOrdered = false;
+        _collider.material.bounciness = default;
+
+        float verticalMagnitude = new Vector3(0f, _rigidbody.velocity.y, 0f).magnitude;
+        float jumpForce = Mathf.Min(verticalMagnitude * _PressedInTimeJumpScaler, _jumpBehaviour.MaxJumpForce);
+
+        _jumpBehaviour.SetForce(jumpForce);
     }
 
     private void SetBounciness(bool isVertical)
     {
+        const float minBounciness = 0.4f;
+        const float maxBounciness = 0.9f;
+
         float speed = NormalizedSpeed();
-        print($"Touch {touch}.BEFORE({speed:0.0})");
         if (isVertical)
         {
-            speed = Mathf.Min(speed, 0.2f);
-        print($"Touch {touch}.AFTER({speed:0.0})");
+            
+            speed = minBounciness;
         }
         else
         {
-            speed = Mathf.Min(speed, 0.9f);
+            speed = Mathf.Clamp(speed, minBounciness, maxBounciness);
         }
 
-        
         _collider.material.bounciness = speed;
+        print(speed);
     }
 
     private bool IsVertical(Collider other)
@@ -81,8 +71,7 @@ public class BounceBehaviour : MonoBehaviour
         float currentMaxSpeed = Mathf.Max(_speedometer.LastMaxSpeed, _speedometer.MaxLinearSpeed);
         _speedometer.ResetLastMaxSpeed();
 
-        float speed = lastFrameSpeed / currentMaxSpeed;
-        print($"Touch {touch}.FORMULA({lastFrameSpeed:0.0} / {currentMaxSpeed:0.0} = {speed:0.0})");
+        float speed = _rigidbody.velocity.magnitude / currentMaxSpeed;
         return speed;
     }
 }

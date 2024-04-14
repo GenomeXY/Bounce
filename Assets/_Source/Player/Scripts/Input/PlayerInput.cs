@@ -6,9 +6,6 @@ public class PlayerInput : MonoBehaviour
     private readonly string Horizontal = "Horizontal";
     private readonly string Vertical = "Vertical";
 
-    private const string HorizontalAxis = nameof(Horizontal);
-    private const string VerticalAxis = nameof(Vertical);
-
     [SerializeField] private KeyCode _boostKey = KeyCode.LeftShift;
     [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
     private Vector3 _direction = new Vector3();
@@ -33,7 +30,7 @@ public class PlayerInput : MonoBehaviour
 
     private void ProcessInput()
     { 
-        _direction.Set(Input.GetAxisRaw(HorizontalAxis), 0f, Input.GetAxisRaw(VerticalAxis));
+        _direction.Set(Input.GetAxisRaw(Horizontal), 0f, Input.GetAxisRaw(Vertical));
         _direction.Normalize();
 
         if(Input.GetKeyDown(_jumpKey))

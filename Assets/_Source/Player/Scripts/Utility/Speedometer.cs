@@ -23,8 +23,6 @@ public class Speedometer : MonoBehaviour
     {
         GUILayout.Label($"V:                {_rigidbody.velocity.magnitude:0.0}");
         GUILayout.Label($"AngV:             {_rigidbody.angularVelocity.magnitude:0.0}");
-        GUILayout.Label($"Max LV:           {_rigidbody.maxLinearVelocity:0.0}");
-        GUILayout.Label($"Max DV:           {_rigidbody.maxDepenetrationVelocity:0.0}");
         GUILayout.Label($"Max AngV:         {_rigidbody.maxAngularVelocity / _rigidbody.angularDrag:0.0}");
         GUILayout.Label($"Mathf Max V:      {LastMaxSpeed:0.0}");
         GUILayout.Label($"Mathf Max AngV:   {maxAngleSpeed:0.0}");

@@ -7,11 +7,17 @@ public class GroundSensor : MonoBehaviour
     [SerializeField] private float _delay;
     private float _timer;
 
+    JumpBehaviour _jumpBehaviour;
     Coroutine _coroutine;
 
     public bool IsGrounded { get; private set; }
 
     public event Action Grounded;
+
+    private void Awake()
+    {
+        _jumpBehaviour = GetComponent<JumpBehaviour>();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -32,7 +38,11 @@ public class GroundSensor : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (IsGrounded)
+        if(_jumpBehaviour.CanJump == false)
+        {
+            IsGrounded = false;
+        }
+        else if (IsGrounded)
         {
             if (_coroutine != null)
                 StopCoroutine(_coroutine);
