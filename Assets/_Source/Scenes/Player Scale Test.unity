@@ -1378,18 +1378,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 442118078}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &458412134 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 585670762871924544, guid: 8c1aa5a18c2b0ce43a2b851d5a6803ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 6412645807957262360}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9050c5373b1f84aafcd596d59eb9e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &472241952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6434,18 +6422,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2130348153}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &615706985894183388 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4462974078730663349, guid: 8c1aa5a18c2b0ce43a2b851d5a6803ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 6412645807957262360}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 405fdea66c6668148b536947ab6d1b79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2078830557035116664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6519,12 +6495,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d490ae355fd3949943d4802976e1a8, type: 3}
---- !u!4 &3374249833479139674 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7980717100184430541, guid: 8c1aa5a18c2b0ce43a2b851d5a6803ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 6412645807957262360}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5098333474125378309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6709,21 +6679,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1887332058666688690, guid: 8c1aa5a18c2b0ce43a2b851d5a6803ca,
-        type: 3}
-      propertyPath: _cameraPivot
-      value: 
-      objectReference: {fileID: 3374249833479139674}
-    - target: {fileID: 1887332058666688690, guid: 8c1aa5a18c2b0ce43a2b851d5a6803ca,
-        type: 3}
-      propertyPath: _ballAnimation
-      value: 
-      objectReference: {fileID: 458412134}
-    - target: {fileID: 1887332058666688690, guid: 8c1aa5a18c2b0ce43a2b851d5a6803ca,
-        type: 3}
-      propertyPath: _bounceBehaviour
-      value: 
-      objectReference: {fileID: 615706985894183388}
     - target: {fileID: 9119574364922868153, guid: 8c1aa5a18c2b0ce43a2b851d5a6803ca,
         type: 3}
       propertyPath: m_Name

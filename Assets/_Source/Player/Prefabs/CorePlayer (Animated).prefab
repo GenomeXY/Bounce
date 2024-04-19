@@ -353,7 +353,7 @@ Transform:
   m_GameObject: {fileID: 4912657260267050589}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -374,6 +374,7 @@ MonoBehaviour:
   _target: {fileID: 331738971490152327}
   _offset: {x: 0, y: 0, z: 0}
   _repeatRotation: 1
+  _repeatTranslation: 0
 --- !u!33 &398527860252084639
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -517,7 +518,7 @@ Transform:
   m_GameObject: {fileID: 6305649720842048923}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -552,7 +553,7 @@ Transform:
   m_GameObject: {fileID: 7266682098789625919}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -574,6 +575,7 @@ MonoBehaviour:
   _target: {fileID: 331738971490152327}
   _offset: {x: 0, y: 0, z: 0}
   _repeatRotation: 0
+  _repeatTranslation: 1
 --- !u!114 &585670762871924544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,7 +590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpBehaviour: {fileID: 746877387536499141}
   _bounceBehaviour: {fileID: 4462974078730663349}
-  _defaultBottomPosition: {x: 0, y: -0.3, z: 0}
+  _defaultPosition: {x: 0, y: -0.3, z: 0}
 --- !u!95 &7026100944505123323
 Animator:
   serializedVersion: 5
@@ -702,10 +704,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef28b58422b0a804ca7fdbcefdc0b3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameObject: {fileID: 331738971490152327}
+  _cameraPivot: {fileID: 7980717100184430541}
   RayLengthTransform: 2
   LocalAxis: 0
   _rigidbody: {fileID: 6536473313566051572}
   RayLengthRigidbody: 1
   Velocity: 0
   AngularVelocity: 0
+  _bounceBehaviour: {fileID: 4462974078730663349}
+  _ballAnimation: {fileID: 585670762871924544}
